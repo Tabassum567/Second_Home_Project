@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Verification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    th, td {
+      padding: 15px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #007bff;
+      color: #fff;
+    }
+    
+    td {
+      border-bottom: 1px solid #ddd;
+    }
+    
+    img {
+      max-width: 100px;
+      max-height: 100px;
+    }
+    
+    select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+    }
+    
+    .verified {
+      color: #28a745;
+      font-weight: bold;
+    }
+    
+    .rejected {
+      color: #dc3545;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Image Verification</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Uploader</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><img src="image1.jpg" alt="Image 1"></td>
+        <td>John Doe</td>
+        <td>
+          <select>
+            <option value="verified">Verified</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><img src="image2.jpg" alt="Image 2"></td>
+        <td>Jane Smith</td>
+        <td>
+          <select>
+            <option value="verified">Verified</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </td>
+      </tr>
+      <!-- Add more rows as needed -->
+    </tbody>
+  </table>
+
+  <script>
+    // You can add JavaScript code here if needed
+  </script>
+</body>
+</html>

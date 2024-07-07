@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book A Visit</title>
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <!-- <link rel="stylesheet" href="/css/dashboard.css" /> -->
+    <style>
+      /* Form */
+      .form-input {
+        display: block;
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: 2px solid #ccc;
+        border-radius: 0.25rem;
+        margin-bottom: 1rem;
+      }
+      .button {
+        border: none;
+        background-color: #008cba;
+        color: white;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 0.25rem;
+      }
+      .button-primary {
+        background-color: #4caf50;
+      }
+
+      /* Table */
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 800px;
+        margin: 2rem auto;
+        font-size: 1rem;
+        color: #333;
+      }
+      th,
+      td {
+        text-align: center;
+        border: 1px solid #ddd;
+        padding: 0.5rem;
+      }
+      th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+      }
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      tr:hover {
+        background-color: #ddd;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        margin-top: 0;
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      form {
+        background-color: #f2f2f2;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+        margin: 2rem auto;
+        max-width: 40rem;
+        padding: 2rem;
+      }
+
+      form label {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      form select,
+      form input[type="date"],
+      form button {
+        border: none;
+        border-radius: 0.25rem;
+        box-sizing: border-box;
+        display: block;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        width: 100%;
+      }
+
+      form button {
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+      }
+
+      form button:hover {
+        background-color: #0069d9;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin: 2rem auto;
+        max-width: 80%;
+        width: 100%;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ddd;
+        padding: 0.5rem;
+        text-align: center;
+      }
+
+      table th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+      }
+
+      /* table td[data-date=""], table td[data-time=""] {
+                background-color: #f5b7b1;
+                color: #fff;
+            } */
+
+      table td.pending {
+        background-color: #f5b7b1;
+      }
+
+      table td.confirmed {
+        background-color: #c6efce;
+      }
+
+      table td[data-date]:hover,
+      table td[data-time]:hover {
+        cursor: pointer;
+        background-color: #eee;
+      }
+
+      @media only screen and (max-width: 768px) {
+        form,
+        table {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="container"> -->
+    <!-- <%- include("navbar"); -%> -->
+    <!-- <div class="main"></div> -->
+    <div class="container">
+      <%- include("navbar"); -%>
+      <div class="main">
+        <form>
+          <label for="student">Select student:</label>
+          <select id="student" class="form-input">
+            <% data.forEach(function(info) { %>
+            <!-- <li><%= info._id %> - <%= info.property_id %></li> -->
+            <option value="<%= info._id %>">
+              <%= info.customerData.username %>
+            </option>
+            <% }); %>
+          </select>
+
+          <label for="visit-date">Select visit date:</label>
+
+          <input type="date" id="visit-date" class="form-input" />
+          <!-- <label for="visit-time">Visit Time:</label> -->
+          <select id="visit-time" name="visit-time" required>
+            <option value="">Select a time slot</option>
+            <option value="9:00 AM - 11:00 AM">9:00 AM - 11:00 AM</option>
+            <option value="11:00 AM - 1:00 PM">11:00 AM - 1:00 PM</option>
+            <option value="2:00 PM - 4:00 PM">2:00 PM - 4:00 PM</option>
+            <option value="4:00 PM - 6:00 PM">4:00 PM - 6:00 PM</option>
+          </select>
+          <br />
+          <button
+            type="submit"
+            class="button button-primary"
+            onclick="setVisitDate(event)"
+          >
+            Set Visit Date
+          </button>
+        </form>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Request Date</th>
+              <th>Property Title</th>
+              <th>Owner Name</th>
+              <th>Visit Date</th>
+              <th>Time Slot</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% data.forEach(function(info) { %>
+            <!-- <li><%= info._id %> - <%= info.property_id %></li> -->
+
+            <tr>
+              <!-- <p style="visibility: hidden"><%= info._id %></p> -->
+              <td><%= info.customerData.username %></td>
+              <td><%= info.date %></td>
+              <td><%= info.postAdData.property_type %></td>
+              <td><%= info.ownerData.username %></td>
+              <% if (info.status === "pending") { %>
+              <td id="<%= info._id %>1" data-date=""></td>
+              <td id="<%= info._id %>2" data-time=""></td>
+              <td id="<%= info._id %>3"><%= info.status %></td>
+              <%} else { %>
+              <td data-date=""><%= info.visit_date %></td>
+              <td data-time=""><%= info.visit_time %></td>
+              <td><%= info.status %></td>
+              <% } %>
+            </tr>
+
+            <% }); %>
+          </tbody>
+        </table>
+
+        <table id="owners-availability">
+          <thead>
+            <tr>
+              <th>Owner</th>
+              <th>Monday</th>
+              <th>Tuesday</th>
+              <th>Wednesday</th>
+              <th>Thursday</th>
+              <th>Friday</th>
+              <th>Saturday</th>
+              <th>Sunday</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% ownerData.forEach(function(owner) { %>
+            <tr>
+              <td><%= owner.ownerData ? owner.ownerData.username : '' %></td>
+              <td class="available">
+                <% if (owner.ownerData && owner.ownerData.availability &&
+                owner.ownerData.availability.includes('Monday')) { %> Available
+                <% } else { %> N/A <% } %>
+              </td>
+
+              <td class="available">
+                <% if (owner.ownerData && owner.ownerData.availability &&
+                owner.ownerData.availability.includes('Tuesday')) { %> Available
+                <% } else { %> N/A <% } %>
+              </td>
+              <td class="available">
+                <% if (owner.ownerData && owner.ownerData.availability &&
+                owner.ownerData.availability.includes('Wednesday')) { %>
+                Available <% } else { %> N/A <% } %>
+              </td>
+              <td class="available">
+                <% if (owner.ownerData && owner.ownerData.availability &&
+                owner.ownerData.availability.includes('Thursday')) { %>
+                Available <% } else { %> N/A <% } %>
+              </td>
+              <td class="available">
+                <% if (owner.ownerData && owner.ownerData.availability &&
+                owner.ownerData.availability.includes('Friday')) { %> Available
+                <% } else { %> N/A <% } %>
+              </td>
+              <td class="available">
+                <% if (owner.ownerData && owner.ownerData.availability &&
+                owner.ownerData.availability.includes('Saturday')) { %>
+                Available <% } else { %> N/A <% } %>
+              </td>
+              <td class="available">
+                <% if (owner.ownerData && owner.ownerData.availability &&
+                owner.ownerData.availability.includes('Sunday')) { %> Available
+                <% } else { %> N/A <% } %>
+              </td>
+            </tr>
+
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- </div> -->
+  </body>
+</html>
+<script>
+  async function setVisitDate(event) {
+    event.preventDefault(); // prevent form submission
+
+    // Get selected student's name
+    var studentName = document.getElementById("student").value;
+    console.log(studentName);
+    // Get selected visit date and time slot
+    var visitDate = document.getElementById("visit-date").value;
+    var visitTime = document.getElementById("visit-time").value;
+
+    // Check if visit date and time slot are both selected
+    if (!visitDate || !visitTime) {
+      alert("Please select a visit date and time slot");
+      return;
+    }
+
+    // Check if selected time slot is already booked
+    var cell = document.querySelector(
+      'td[data-date="' + visitDate + '"][data-time="' + visitTime + '"]',
+    );
+    if (cell && cell.classList.contains("unavailable")) {
+      // Fixed: Check if cell exists before checking its classList
+      alert(
+        "The selected time slot is already booked. Please choose another time.",
+      );
+      return;
+    }
+
+    // Update student's visit date and time slot columns
+    var studentVisitDate = document.getElementById(studentName + "1");
+    console.log(studentVisitDate);
+    studentVisitDate.innerHTML = visitDate;
+    var studentVisitTime = document.getElementById(studentName + "2");
+    studentVisitTime.innerHTML = visitTime;
+
+    // Update student's status
+    var studentStatus = document.getElementById(studentName + "3");
+    studentStatus.innerHTML = "scheduled"; // Fixed: Set status to "Confirmed" instead of "Pending"
+
+    await fetch("http://localhost:8000/scheduleAVisit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: studentName,
+        visit: visitDate,
+        slot: visitTime,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data.message);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    // Mark the selected time slot as booked
+    if (cell) {
+      cell.classList.add("unavailable");
+    }
+    var dateCells = document.querySelectorAll("td[data-date]");
+    dateCells.forEach(function (cell) {
+      if (cell.dataset.date < visitDate) {
+        cell.classList.add("unavailable");
+        const ownersAvailability = [
+          {
+            name: "Owner A",
+            availability: [
+              "available",
+              "available",
+              "",
+              "available",
+              "unavailable",
+              "unavailable",
+              "",
+            ],
+          },
+          {
+            name: "Owner B",
+            availability: [
+              "unavailable",
+              "available",
+              "available",
+              "available",
+              "available",
+              "available",
+              "available",
+            ],
+          },
+          {
+            name: "Owner C",
+            availability: [
+              "",
+              "unavailable",
+              "unavailable",
+              "available",
+              "available",
+              "",
+              "available",
+            ],
+          },
+        ];
+      }
+
+      const table = document.getElementById("owners-availability");
+
+      for (let i = 0; i < ownersAvailability.length; i++) {
+        const owner = ownersAvailability[i];
+        const row = table.insertRow(-1);
+        const nameCell = row.insertCell(0);
+        nameCell.innerHTML = owner.name;
+
+        for (let j = 0; j < owner.availability.length; j++) {
+          const availability = owner.availability[j];
+          if (availability === "available") {
+            row.insertCell(j + 1).className = "available";
+          } else if (availability === "unavailable") {
+            row.insertCell(j + 1).className = "unavailable";
+          } else {
+            row.insertCell(j + 1).className = "";
+          }
+        }
+      }
+    });
+  }
+</script>
+<%- include("utils"); -%>

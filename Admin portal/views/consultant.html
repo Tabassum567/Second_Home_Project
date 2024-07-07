@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Consultant Management</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Consultant Management</h1>
+        <table id="consultantTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+</body>
+<style>
+   body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+thead {
+  background-color: #333;
+  color: #fff;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #ebebeb;
+}
+
+
+
+</style>
+<script>
+    // Sample consultant data (replace with your actual data)
+var consultants = [
+  { id: 1, name: "John Doe", email: "johndoe@example.com", phone: "123-456-7890" },
+  { id: 2, name: "Jane Smith", email: "janesmith@example.com", phone: "987-654-3210" },
+  { id: 3, name: "Alice Johnson", email: "alicejohnson@example.com", phone: "555-555-5555" }
+];
+
+document.addEventListener("DOMContentLoaded", function() {
+  var tableBody = document.querySelector("#consultantTable tbody");
+
+  consultants.forEach(function(consultant) {
+    var row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${consultant.id}</td>
+      <td>${consultant.name}</td>
+      <td>${consultant.email}</td>
+      <td>${consultant.phone}</td>
+    `;
+    tableBody.appendChild(row);
+  });
+});
+
+</script>
+</html>

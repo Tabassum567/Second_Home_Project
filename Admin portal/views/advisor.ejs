@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Image Verification</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      th,
+      td {
+        padding: 15px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #007bff;
+        color: #fff;
+      }
+
+      td {
+        border-bottom: 1px solid #ddd;
+      }
+
+      img {
+        max-width: 100px;
+        max-height: 100px;
+      }
+
+      select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 4px;
+      }
+
+      .verified {
+        color: #28a745;
+        font-weight: bold;
+      }
+
+      .rejected {
+        color: #dc3545;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Image Verification</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Uploader</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach(function(record) { %>
+        <tr>
+          <td>
+            <a href="<%= record.picture_url %>" target="_blank">Document</a>
+          </td>
+          <td><%= record.data.username %></td>
+          <td>
+            <select
+              onclick="updateStatus('<%= record.data.email_address %>', this.value);"
+            >
+              <option value="verified" id="<%= record.data.email_address %>">
+                Verified
+              </option>
+              <option value="rejected" id="<%= record.data.email_address %>">
+                Rejected
+              </option>
+            </select>
+          </td>
+        </tr>
+        <% }); %>
+
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+
+    <script>
+      async function updateStatus(emailAddress, updateStatus) {
+        await fetch("http://localhost:8000/documentDetails", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: emailAddress,
+            status: updateStatus,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data.message);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,305 @@
+/* =========== Google Fonts ============ */
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+
+/* =============== Globals ============== */
+* {
+  font-family: "Ubuntu", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+/* =============== Navigation ================ */
+
+
+/* ===================== Main ===================== */
+.main {
+  position: absolute;
+  width: calc(100% - 300px);
+  left: 300px;
+  min-height: 100vh;
+  background: #F5F5DC;
+  transition: 0.5s;
+}
+.main.active {
+  width: calc(100% - 80px);
+  left: 80px;
+}
+
+.topbar {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.toggle {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+.search {
+  position: relative;
+  width: 400px;
+  margin: 0 10px;
+}
+
+.search label {
+  position: relative;
+  width: 100%;
+}
+
+.search label input {
+  width: 100%;
+  height: 40px;
+  border-radius: 40px;
+  padding: 5px 20px;
+  padding-left: 35px;
+  font-size: 18px;
+  outline: none;
+  border: 1px solid  #999;
+}
+
+.search label ion-icon {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  font-size: 1.2rem;
+}
+
+.user {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.user ion-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ======================= Cards ====================== */
+.cardBox {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px;
+}
+
+.cardBox .card {
+  position: relative;
+  background: #F5F5DC;
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.cardBox .card .numbers {
+  position: relative;
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: #4682B4;
+}
+
+.cardBox .card .cardName {
+  color:  #999;
+  font-size: 1.1rem;
+  margin-top: 5px;
+}
+
+.cardBox .card .iconBx {
+  font-size: 3.5rem;
+  color:  #999;
+}
+
+.cardBox .card:hover {
+  background: #4682B4;
+}
+.cardBox .card:hover .numbers,
+.cardBox .card:hover .cardName,
+.cardBox .card:hover .iconBx {
+  color: #F5F5DC;
+}
+/* ====================== Verified Lists ========================== */
+
+
+.verification {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+ 
+}
+.verification .verification-list
+{
+    position: relative;
+  display: flex;
+  flex-direction: column;
+    width: 40vw;
+  min-height: 500px;
+  background: #F5F5DC;
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}
+.list-header{
+    display: flex;
+  justify-content: space-between;
+/*  align-items: flex-start;*/
+}
+.list-header h2{
+    font-weight: 600;
+  color: #4682B4;
+}
+.list-header .btn{
+  position: relative;
+  padding: 5px 10px;
+  background-color: #4682B4;
+  text-decoration: none;
+  color: #F5F5DC;
+  border-radius: 6px;
+}
+.verification table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+
+}
+.verif-status{
+    text-align: right;
+    
+}
+.main-status{
+    text-align: right;
+    
+}
+.verification table thead td {
+
+  font-weight: 600;
+
+}
+
+.status{
+  padding: 1px 4px;
+  background: #8de02c;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: right;
+}
+.verification .verification-list table tr {
+/*
+  color: black;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+*/
+}
+.verification .verification-list table tr:last-child {
+  border-bottom: none;
+}
+.verification .verification-list table tbody tr:hover {
+  background: #4682B4 ;
+  color: #F5F5DC;
+}
+.verification .verification-list table tr td {
+  padding: 10px;
+}
+.verification .verification-list table tr td:last-child {
+  text-align: end;
+}
+.verification .verification-list table tr td:nth-child(2) {
+  text-align: end;
+}
+.verification .verification-list table tr td:nth-child(3) {
+  text-align: center;
+}
+
+
+
+/* ====================== Responsive Design ========================== */
+@media (max-width: 991px) {
+  .navigation-bar {
+    left: -300px;
+  }
+  .navigation-bar.active {
+    width: 300px;
+    left: 0;
+  }
+  .main {
+    width: 100%;
+    left: 0;
+  }
+  .main.active {
+    left: 300px;
+  }
+  .cardBox {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media (max-width: 480px) {
+  .cardBox {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .cardHeader h2 {
+    font-size: 20px;
+  }
+  .user {
+    min-width: 90px;
+  }
+  .navigation-bar {
+    width: 100%;
+    left: -100%;
+    z-index: 1000;
+  }
+  .navigation-bar.active {
+    width: 100%;
+    left: 0;
+  }
+  .toggle {
+    z-index: 10001;
+  }
+  .main.active .toggle {
+    color: #fff;
+    position: fixed;
+    right: 0;
+    left: initial;
+  }
+    .search input[type="text"]{
+        font-size: 8px
+    }
+}
+

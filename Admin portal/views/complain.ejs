@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Complaint List</title>
+    <link rel="stylesheet" href="/css/complain.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+  </head>
+  <body>
+    <div class="container">
+      <%- include("navbar"); -%>
+      <div class="main">
+        <div class="container-body">
+          <h1>Complaint List</h1>
+
+          <div class="complaints">
+            <table>
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Complaint Title</th>
+                  <th>Complaint Type</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="complaintsTable">
+                <% complains.forEach(function(complain) { %>
+
+                <tr>
+                  <td><%= complain.complain.username %></td>
+                  <td><%= complain.complain_title %></td>
+                  <td><%= complain.complain_category %></td>
+                  <td><%= complain.complain_description %></td>
+                  <td><%= complain.complain_status %></td>
+                  <td style="display: none"><%= complain.complain_owner %></td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="resolve-form">
+            <h2>Resolve Complaint</h2>
+            <form id="resolveForm" action="/complain" method="post">
+              <label for="resolveStudentName">Student Name:</label>
+              <select id="resolveStudentName" required>
+                <option value="" disabled selected>Select Student</option>
+              </select>
+
+              <label for="resolveDescription">Resolution Description:</label>
+              <textarea id="resolveDescription" rows="6" required></textarea>
+
+              <input type="submit" class="btn" value="Resolve Complaint" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("resolveForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          // Get form values
+          var resolveStudentName =
+            document.getElementById("resolveStudentName").value;
+          var resolveDescription =
+            document.getElementById("resolveDescription").value;
+
+          // Find the corresponding complaint row based on student name
+          var complaintsTable = document.getElementById("complaintsTable");
+          var rows = complaintsTable.getElementsByTagName("tr");
+          for (var i = 0; i < rows.length; i++) {
+            // Modified line: Start from index 0
+            var studentName = rows[i].getElementsByTagName("td")[0].innerText;
+            var studentEmail = rows[i].getElementsByTagName("td")[5].innerText;
+            console.log(studentEmail);
+            if (studentName === resolveStudentName) {
+              // Add resolution description to the complaint row
+              //   var resolveCell = document.createElement("td");
+              //   resolveCell.innerText = resolveDescription;
+
+              // Update the status cell to "Resolved"
+              var statusCell = rows[i].getElementsByTagName("td")[4]; // Assuming status cell is at index 4
+              statusCell.innerText = "Resolved";
+
+              await fetch("http://localhost:8000/complain", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  email: studentEmail,
+                  description: resolveDescription,
+                }),
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  console.log("Success:", data.message);
+                })
+                .catch((error) => {
+                  console.error("Error:", error);
+                });
+
+              rows[i].appendChild(resolveCell);
+
+              // Clear the form after resolution
+              document.getElementById("resolveForm").reset();
+              alert("Complaint resolved successfully!");
+              return;
+            }
+          }
+
+          // If no matching complaint found, show an error message
+          alert("Complaint not found!");
+        });
+
+      // Update dropdown options based on complaint list
+      window.addEventListener("DOMContentLoaded", function () {
+        var complaintsTable = document.getElementById("complaintsTable");
+        var rows = complaintsTable.getElementsByTagName("tr");
+
+        var resolveStudentNameDropdown =
+          document.getElementById("resolveStudentName");
+        for (var i = 0; i < rows.length; i++) {
+          var studentName = rows[i].getElementsByTagName("td")[0].innerText;
+          var option = document.createElement("option");
+          option.value = studentName;
+          option.text = studentName;
+          resolveStudentNameDropdown.add(option);
+        }
+      });
+    </script>
+  </body>
+</html>

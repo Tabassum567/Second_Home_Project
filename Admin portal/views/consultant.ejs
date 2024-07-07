@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Information</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <style>
+      .body-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+      }
+      h1 {
+        font-size: 32px;
+        font-weight: bold;
+        margin: 0;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #333;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      th,
+      td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f5f5f5;
+        color: #333;
+        font-weight: bold;
+      }
+      td.verified {
+        color: #0a0;
+        font-weight: bold;
+      }
+      td.unverified {
+        color: #f00;
+        font-weight: bold;
+      }
+
+      @media only screen and (max-width: 600px) {
+        h1 {
+          font-size: 24px;
+        }
+        th,
+        td {
+          padding: 8px 10px;
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <%- include("navbar"); -%>
+      <div class="main">
+        <div class="body-container">
+          <h1>Consultants</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email Address</th>
+                <th>CNIC</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= consultants %> <% consultants.forEach((consultant)=> { %>
+              <tr>
+                <td>
+                  <input type="text" value="<%= consultant.status %>" id="" />
+                  <%= consultant.status %>
+                </td>
+                <td><%= consultant.email_address %></td>
+                <td><%= consultant.cnic %></td>
+              </tr>
+
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<%- include("utils"); -%>

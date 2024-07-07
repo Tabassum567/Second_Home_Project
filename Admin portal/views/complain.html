@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Complaint List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .complaints {
+      margin-top: 30px;
+    }
+
+    .complaints table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .complaints th,
+    .complaints td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .complaints th {
+      background-color: #4caf50;
+      color: #fff;
+    }
+
+    .complaints td:nth-child(1) {
+      font-weight: bold;
+    }
+
+    .resolve-form {
+      margin-top: 30px;
+      border: 1px solid #ddd;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+
+    .resolve-form h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .resolve-form label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .resolve-form select,
+    .resolve-form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    .resolve-form .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: #fff;
+      text-decoration: none;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .resolve-form .btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Complaint List</h1>
+    
+    <div class="complaints">
+      <table>
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Complaint Title</th>
+            <th>Complaint Type</th>
+            <th>Description</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="complaintsTable">
+          
+          <tr>
+            <td>Alex Johnson</td>
+            <td>Assignment Grading Error</td>
+            <td>Academic</td>
+            <td>Received incorrect marks in the last assignment.</td>
+            <td>Unresolved</td>
+          </tr>
+          <tr>
+            <td>Komal</td>
+            <td>Internet issues</td>
+            <td>Academic</td>
+            <td>Not working</td>
+            <td>Unresolved</td>
+          </tr>
+          <tr>
+            <td>Tabassum</td>
+            <td>Assignment Grading Error</td>
+            <td>Academic</td>
+            <td>Received incorrect marks in the last assignment.</td>
+            <td>Unresolved</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="resolve-form">
+      <h2>Resolve Complaint</h2>
+      <form id="resolveForm">
+        <label for="resolveStudentName">Student Name:</label>
+        <select id="resolveStudentName" required>
+          <option value="" disabled selected>Select Student</option>
+        </select>
+
+        <label for="resolveDescription">Resolution Description:</label>
+        <textarea id="resolveDescription" rows="6" required></textarea>
+
+        <input type="submit" class="btn" value="Resolve Complaint">
+      </form>
+    </div>
+  </div>
+
+  <script>
+   document.getElementById("resolveForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  // Get form values
+  var resolveStudentName = document.getElementById("resolveStudentName").value;
+  var resolveDescription = document.getElementById("resolveDescription").value;
+
+  // Find the corresponding complaint row based on student name
+  var complaintsTable = document.getElementById("complaintsTable");
+  var rows = complaintsTable.getElementsByTagName("tr");
+  for (var i = 0; i < rows.length; i++) { // Modified line: Start from index 0
+    var studentName = rows[i].getElementsByTagName("td")[0].innerText;
+    if (studentName === resolveStudentName) {
+      // Add resolution description to the complaint row
+    //   var resolveCell = document.createElement("td");
+    //   resolveCell.innerText = resolveDescription;
+
+      // Update the status cell to "Resolved"
+      var statusCell = rows[i].getElementsByTagName("td")[4]; // Assuming status cell is at index 4
+      statusCell.innerText = "Resolved";
+
+      rows[i].appendChild(resolveCell);
+
+      // Clear the form after resolution
+      document.getElementById("resolveForm").reset();
+      alert("Complaint resolved successfully!");
+      return;
+    }
+  }
+
+  // If no matching complaint found, show an error message
+  alert("Complaint not found!");
+});
+
+    // Update dropdown options based on complaint list
+    window.addEventListener("DOMContentLoaded", function() {
+      var complaintsTable = document.getElementById("complaintsTable");
+      var rows = complaintsTable.getElementsByTagName("tr");
+
+      var resolveStudentNameDropdown = document.getElementById("resolveStudentName");
+      for (var i = 0; i < rows.length; i++) {
+        var studentName = rows[i].getElementsByTagName("td")[0].innerText;
+        var option = document.createElement("option");
+        option.value = studentName;
+        option.text = studentName;
+        resolveStudentNameDropdown.add(option);
+      }
+    });
+  </script>
+</body>
+</html>

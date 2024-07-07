@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Denial</title>
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <style>
+      #adminScreen {
+        width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      textarea {
+        width: 100%;
+        resize: vertical;
+        margin-bottom: 10px;
+      }
+
+      button {
+        display: block;
+        width: 100%;
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #4caf50;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <%- include("navbar"); -%>
+      <div class="main">
+        <div id="adminScreen">
+          <h2>Admin Denial Screen</h2>
+          <form method="post" action="reject" id="denialForm">
+            <input type="hidden" name="id" value="<%= id %>" />
+            <label for="reason">Reason for Denial:</label>
+            <textarea
+              id="reason"
+              name="reason"
+              rows="4"
+              cols="50"
+              placeholder="Enter reason for denial"
+            ></textarea>
+
+            <label for="improvement">Suggested Improvement:</label>
+            <textarea
+              id="improvement"
+              name="improvement"
+              rows="4"
+              cols="50"
+              placeholder="Enter suggested improvement"
+            ></textarea>
+
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

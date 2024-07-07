@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<httml>
+
+<div id="adminScreen">
+  <h2>Admin Denial Screen</h2>
+  <form id="denialForm">
+    <label for="reason">Reason for Denial:</label>
+    <textarea id="reason" rows="4" cols="50" placeholder="Enter reason for denial"></textarea>
+
+    <label for="improvement">Suggested Improvement:</label>
+    <textarea id="improvement" rows="4" cols="50" placeholder="Enter suggested improvement"></textarea>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+</httml>
+<style>
+#adminScreen {
+  width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+  margin-bottom: 10px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #4caf50;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+</style>
+<script>
+    document.getElementById("denialForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  // Get the values entered by the admin
+  var reason = document.getElementById("reason").value;
+  var improvement = document.getElementById("improvement").value;
+
+  // Do something with the values (e.g., store them, send them to the server, etc.)
+  console.log("Reason for Denial: " + reason);
+  console.log("Suggested Improvement: " + improvement);
+
+  // Clear the form fields
+  document.getElementById("reason").value = "";
+  document.getElementById("improvement").value = "";
+
+  // Display a success message or perform any other desired action
+  alert("Denial reason submitted successfully!");
+});
+
+</script>
