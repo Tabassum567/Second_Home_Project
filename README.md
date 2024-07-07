@@ -34,6 +34,7 @@ complaints.
 ➢ The parties can keep a track record under the unique IDs.
 
 **Technology Stack:**
+
 Frontend: Developed using Flutter, ensuring a seamless and responsive user interface across iOS and Android platforms.
 
 Backend: Node.js.
